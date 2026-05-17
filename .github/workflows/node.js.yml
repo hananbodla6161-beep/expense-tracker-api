@@ -1,0 +1,27 @@
+name: Node.js CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-size: '18.x'
+        cache: 'npm' # This optimizes and caches dependencies to speed up execution
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Unit Tests
+      run: npm test
